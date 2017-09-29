@@ -19,14 +19,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-    render json: @user
+    token = request.headers["HTTP_AUTHORIZATION"].split.last
+    user_id = Auth.decode(token)
+    user = User.find(user_id["user"])
+    render json: {id: user.id, firstName: user.first_name, lastName: user.last_name, email: user.email}
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :id)
   end
 
 end
