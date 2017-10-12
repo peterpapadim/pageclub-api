@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users
       post '/login', to: "sessions#create"
       get '/search/:term', to: "books#search"
+      get '/isbn/:term', to: "books#isbn"
     end
   end
 end
