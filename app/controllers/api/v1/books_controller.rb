@@ -12,6 +12,8 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:user])
+    user.books.find_by(volume_id: params[:id]).destroy
   end
 
   def library
@@ -21,7 +23,7 @@ class Api::V1::BooksController < ApplicationController
 
     books.each do |book|
       book_result = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=id:#{book.volume_id}&printType=books&maxResults=40&key=AIzaSyBrCZemnxLXIl3tV7ccNJp82SYvoSjmrFM"
-      all_books << JSON.parse(book_result.body)["items"][0]
+      all_books << {book_info: JSON.parse(book_result.body)["items"][0], checked_out: book.checked_out, checked_out_user: book.checked_out_user}
     end
     render json: all_books
   end
