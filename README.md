@@ -24,6 +24,6 @@ Build date: 10/01/17 - 10/30/17
 
 Contact:
 
-+ Panagiotis Papadimitropoulos
++ Peter Papadimitropoulos
 + ppapadim12@gmail.com
 + www.codepeter.com
